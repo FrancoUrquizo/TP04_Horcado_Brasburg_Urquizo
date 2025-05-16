@@ -15,6 +15,34 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        
+            Juego.InicializarJuego();
+            ViewBag.VBIndex = Juego.DicPalabraJuego;
+          return View();
     }
+public IActionResult IrAlJuego ()
+{
+    Juego.InicializarJuego();
+    ViewBag.VBJuego = Juego.DicPalabraJuego;
+    return View ("Juego");
+}
+   public IActionResult CompararLetra(char letra )
+        {
+           
+            ViewBag.VBJuego = Juego.ContieneLetra(letra);
+        
+            return View();
+
+        }
+ 
+public IActionResult CompararPalabra(string PalabraUsario )
+        {
+           ViewBag.VBCompPalabra = Juego.ContienePalabra(PalabraUsario);
+            return View();
+
+        }
+ 
+
+
+
 }
