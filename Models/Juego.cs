@@ -6,7 +6,7 @@ public static class Juego
     public static int contadorInt { get; private set; }
     public static int ultimoId { get; private set; }
     public static List<string> posiblesPalabras = new List<string> { "auto", "vaso", "casa", "gatos", "mouse", "perro" };
-    public static string palabraSeleccionada;
+    public static string palabraSeleccionada = "";
     public static void InicializarJuego()
     {
         Random random = new Random();
@@ -15,20 +15,20 @@ public static class Juego
 
     }
 
-    public static int ContieneLetra(char LetrasUsuario)
+    public static char[] MostarComoVa(char LetrasUsuario)
     {
         contadorInt++;
-        string comoVa = null;
-        string guion = "_ ";
+        char[] comoVa = new char[palabraSeleccionada.Length];
+
         int CuentasLetrasTiene = palabraSeleccionada.Count();
         int EnQPosicionEsta;
-
+        int j = -1;
 
 
 
         for (int i = 0; i > CuentasLetrasTiene; i++)
         {
-            comoVa += guion;
+            comoVa[i] = '_';
 
         }
 
@@ -37,17 +37,34 @@ public static class Juego
             ListLetrasUsuario.Add(LetrasUsuario);
         }
 
+        for (int i = 0; i > palabraSeleccionada.Count(); i++)
+        {
+
+            do
+            {
+                j++;
+                if (palabraSeleccionada[i] == ListLetrasUsuario[j])
+                {
+                    comoVa[palabraSeleccionada[i]] = ListLetrasUsuario[j];
+                }
+
+            } while (palabraSeleccionada[i] == ListLetrasUsuario[j]);
+
+        }
+        return comoVa;
+
+    }
+     public static bool ContieneESALetra(char LetrasUsuario)
+    {
+        bool LaTiene = false;
         if (palabraSeleccionada.Contains(LetrasUsuario))
         {
-            EnQPosicionEsta = Enqueposiscionesta(LetrasUsuario);
-            if (EnQPosicionEsta > -1)
-            {
-             comoVa[EnQPosicionEsta] = LetrasUsuario;
-            }
+          
+            LaTiene = true;
 
         }
 
-        return contadorInt;
+        return LaTiene;
 
     }
     public static bool ContienePalabra(string PalabraUsario)

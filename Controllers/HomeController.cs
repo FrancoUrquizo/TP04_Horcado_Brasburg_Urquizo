@@ -15,33 +15,40 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        
-            Juego.InicializarJuego();
-            ViewBag.VBIndex = Juego.DicPalabraJuego;
-          return View();
+
+        Juego.InicializarJuego();
+        ViewBag.VBIndex = Juego.DicPalabraJuego;
+        return View();
     }
-public IActionResult IrAlJuego ()
-{
-    Juego.InicializarJuego();
-    ViewBag.VBJuego = Juego.DicPalabraJuego;
-    return View ("Juego");
-}
-   public IActionResult CompararLetra(char letra )
+    public IActionResult IrAlJuego()
+    {
+        Juego.InicializarJuego();
+        ViewBag.VBJuego = Juego.DicPalabraJuego;
+        return View("Juego");
+    }
+    public IActionResult CompararLetra(char letra)
+    {
+        ViewBag.EstaLetra = Juego.ContieneESALetra (letra) ;
+       
+        if(ViewBag.EstaLetra)
         {
-           
-            ViewBag.VBJuego = Juego.ContieneLetra(letra);
+          ViewBag.VBJuego = Juego.MostarComoVa(letra);
+          ViewBag.Intentos = Juego.contadorInt;
+          ViewBag.ListLetrasUsuario = Juego.ListLetrasUsuario;
+
+        }
+        return View("Juego");
+
+    }
+
+    public IActionResult CompararPalabra(string PalabraUsario)
+    {
+        ViewBag.VBCompPalabra = Juego.ContienePalabra(PalabraUsario);
         
-            return View();
+        return View("Juego");
 
-        }
- 
-public IActionResult CompararPalabra(string PalabraUsario )
-        {
-           ViewBag.VBCompPalabra = Juego.ContienePalabra(PalabraUsario);
-            return View();
+    }
 
-        }
- 
 
 
 
