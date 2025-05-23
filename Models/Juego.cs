@@ -1,9 +1,9 @@
 public static class Juego
 {
-    public static Dictionary<int, string> DicPalabraJuego { get; private set; }
+    public static Dictionary<int, string> DicPalabraJuego = new Dictionary<int, string>();
     public static List<char> ListLetrasUsuario = new List<char>();
 
-    public static int contadorInt { get; private set; }
+    public static int contadorInt { get; set; }
     public static int ultimoId { get; private set; }
     public static List<string> posiblesPalabras = new List<string> { "auto", "vaso", "casa", "gatos", "mouse", "perro" };
     public static string palabraSeleccionada = "";
@@ -11,55 +11,52 @@ public static class Juego
     {
         Random random = new Random();
         palabraSeleccionada = posiblesPalabras[random.Next(posiblesPalabras.Count)];
-        DicPalabraJuego.Add(++ultimoId, palabraSeleccionada);
+        ultimoId++;
+        DicPalabraJuego.Add(ultimoId, palabraSeleccionada);
+
 
     }
 
     public static char[] MostarComoVa(char LetrasUsuario)
     {
-        contadorInt++;
+       
         char[] comoVa = new char[palabraSeleccionada.Length];
 
-        int CuentasLetrasTiene = palabraSeleccionada.Count();
-        int EnQPosicionEsta;
-        int j = -1;
+        comoVa = Principio(); 
+        
+        contadorInt++;
 
 
-
-        for (int i = 0; i > CuentasLetrasTiene; i++)
-        {
-            comoVa[i] = '_';
-
-        }
+      
 
         if (ListLetrasUsuario.Contains(LetrasUsuario) != true)
         {
             ListLetrasUsuario.Add(LetrasUsuario);
+             
         }
 
-        for (int i = 0; i > palabraSeleccionada.Count(); i++)
+        for (int i = 0; i < palabraSeleccionada.Length ; i++)
         {
 
-            do
-            {
-                j++;
-                if (palabraSeleccionada[i] == ListLetrasUsuario[j])
+           
+                if (ListLetrasUsuario.Contains(palabraSeleccionada[i] ))
                 {
-                    comoVa[palabraSeleccionada[i]] = ListLetrasUsuario[j];
+                    comoVa[i] = palabraSeleccionada[i];
                 }
 
-            } while (palabraSeleccionada[i] == ListLetrasUsuario[j]);
+           
 
         }
+       
         return comoVa;
 
     }
-     public static bool ContieneESALetra(char LetrasUsuario)
+    public static bool ContieneESALetra(char LetrasUsuario)
     {
         bool LaTiene = false;
         if (palabraSeleccionada.Contains(LetrasUsuario))
         {
-          
+
             LaTiene = true;
 
         }
@@ -70,32 +67,28 @@ public static class Juego
     public static bool ContienePalabra(string PalabraUsario)
     {
         bool gano = false;
-        if (palabraSeleccionada.Contains(PalabraUsario))
+        if (palabraSeleccionada == PalabraUsario)
         {
             contadorInt++;
             gano = true;
 
         }
-
         return gano;
 
     }
 
-    public static int Enqueposiscionesta(char LetrasUsuario)
-    {
-        int posicionCambiarLetra = -1;
-        for (int i = 0; i > palabraSeleccionada.Count(); i++)
+   
+public static char[] Principio ()
+{
+        char[] comoVa = new char[palabraSeleccionada.Length];
+
+      for (int i = 0; i < palabraSeleccionada.Count(); i++)
         {
-            if (palabraSeleccionada[i] == LetrasUsuario)
-            {
-                posicionCambiarLetra = i;
-            }
+            comoVa[i] = '_';
 
         }
-        return posicionCambiarLetra;
-
-    }
-
+        return comoVa;
+}
 
 
 

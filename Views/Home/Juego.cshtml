@@ -3,10 +3,58 @@
     ViewData["Title"] = "Juego";
 }
 <link rel="stylesheet" href="/css/site.css">
+@if(ViewBag.VBComoVa.conteins('_') !=false )
+{
 
-<h1> @ViewBag.VBJuego </h1>
 
-<h2> Letras utilizadas : @ViewBag.ListLetrasUsuario </h2>
-<h3> cantidad de jugadas : @ViewBag.Intentos </h3>
+@if (ViewBag.VBComoVa != null)
+{
+<h1>
+@for(int i = 0; i < ViewBag.VBComoVa.Length ;i++)
+{
+     @ViewBag.VBComoVa[i]
+}
+</h1>
+}
 
-//hacer los formularios
+}
+else 
+{
+  <h1> GANASTE </h1>
+}
+
+
+
+<h2> Lista de letras</h2>
+
+@if (ViewBag.ListLetrasUsuario != null)
+{
+@for(int i = 0; i < ViewBag.ListLetrasUsuario.Count ;i++)
+{
+    <p>
+     @ViewBag.ListLetrasUsuario[i]
+     </p>
+}
+}
+
+<h3> cantidad de jugadas  @ViewBag.Intentos </h3>
+
+<form method= "post" action = '@Url.Action("CompararLetra", "Home")'>
+  <p>
+      Letra jugar <textarea name="Letra" id="Idletra" rows="1" cols="10">
+      </textarea>
+      <input type="submit" value=" Arriesgar Letra" >
+     
+  </p>
+</form>
+
+<form method= "Post" action = '@Url.Action("CompararPalabra", "Home")'>
+<p>
+ Palabra a Arriesgar: <textarea name="Palabra" id="IdPalabra" rows="1" cols="10">
+</textarea>
+<input type="submit" value=" Arriesgar Palabra">
+
+</p>
+  </form>
+
+

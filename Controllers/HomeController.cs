@@ -24,6 +24,9 @@ public class HomeController : Controller
     {
         Juego.InicializarJuego();
         ViewBag.VBJuego = Juego.DicPalabraJuego;
+        ViewBag.VBComoVa = Juego.Principio();
+        ViewBag.ListLetrasUsuario = Juego.ListLetrasUsuario;
+
         return View("Juego");
     }
     public IActionResult CompararLetra(char letra)
@@ -32,19 +35,23 @@ public class HomeController : Controller
        
         if(ViewBag.EstaLetra)
         {
-          ViewBag.VBJuego = Juego.MostarComoVa(letra);
+          ViewBag.VBComoVa = Juego.MostarComoVa(letra);
           ViewBag.Intentos = Juego.contadorInt;
           ViewBag.ListLetrasUsuario = Juego.ListLetrasUsuario;
 
+        }else
+         {
+        ViewBag.ListLetrasUsuario = Juego.ListLetrasUsuario;
         }
         return View("Juego");
 
     }
 
+
+
     public IActionResult CompararPalabra(string PalabraUsario)
     {
         ViewBag.VBCompPalabra = Juego.ContienePalabra(PalabraUsario);
-        
         return View("Juego");
 
     }
